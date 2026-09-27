@@ -1,4 +1,4 @@
-# variable pour géré les appelle de commande makefile
+# variable pour géré les appelle de commande makefile 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Iinclude
 TARGET = secinspect
