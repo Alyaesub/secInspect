@@ -1,0 +1,1 @@
+void show_system_info(void);
