@@ -1,1 +1,1 @@
-void show_system_info(void);
+int show_system_info(void);
