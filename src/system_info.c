@@ -4,14 +4,19 @@
 #include "system_info.h"
 #include <sys/utsname.h>
 
-void show_system_info(void)
+// module présentation system
+int show_system_info(void)
 {
+
+  int status = 0; // status des erreurs total du module, pour les récupéré plus tard dans le main.c
+
+  // donne le hostanme de la machine
   char hostname[256] = {0};
 
   if (gethostname(hostname, sizeof(hostname) - 1) == -1)
   {
     perror("error gethostname");
-    return;
+    status = 1;
   }
   else
   {
@@ -25,7 +30,7 @@ void show_system_info(void)
   if (result == -1)
   {
     perror("error uname");
-    return;
+    status = 1;
   }
   else
   {
@@ -36,4 +41,6 @@ void show_system_info(void)
     printf(" - version: %s\n", sys_info.version);
     printf(" - node_name: %s\n", sys_info.nodename);
   }
+
+  return status;
 }
