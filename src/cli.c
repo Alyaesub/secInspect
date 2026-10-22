@@ -29,51 +29,54 @@ static void show_version(void)
   printf("SecInspect v0.1.0\n");
 }
 
+// fonction qui gére l'affichage des scan --sacn
+static int scan_functions(void)
+{
+  show_banner();
+  int result = show_system_info();
+  if (result == 0)
+  {
+    printf("[INFO] System inspection completed\n");
+  }
+  else
+  {
+    printf("[WARN] System inspection completed with errors\n");
+  }
+  return result;
+}
+
 // fonction qui gére les appel de commande
 int handle_cli(int argc, char *argv[])
 {
   if (argc > 2)
   {
-    printf("ERROR, too many arguments.\n");
+    fprintf(stderr, "[ERROR], too many arguments.\n");
     return 1;
   }
-  else
+  if (argc > 1)
   {
-    if (argc > 1)
+    if (strcmp(argv[1], "--help") == 0)
     {
-      if (strcmp(argv[1], "--help") == 0)
-      {
-        show_help();
-        return 0;
-      }
-      else if (strcmp(argv[1], "--version") == 0)
-      {
-        show_version();
-        return 0;
-      }
-      else if (strcmp(argv[1], "--scan") == 0)
-      {
-        show_banner();
-        int result = show_system_info();
-        if (result == 0)
-        {
-          printf("[INFO] System inspection completed\n");
-        }
-        else
-        {
-          printf("[WARN] System inspection completed with errors\n");
-        }
-        return result;
-      }
-      else
-      {
-        printf("[ERROR] Unknown command option : %s\n", argv[1]);
-        printf("Use './secinspect --help' for usage information.\n");
-        return 1;
-      }
+      show_help();
+      return 0;
     }
-
-    printf("Usage: ./secinspect --help | --version | --scan\n");
-    return 1;
+    else if (strcmp(argv[1], "--version") == 0)
+    {
+      show_version();
+      return 0;
+    }
+    else if (strcmp(argv[1], "--scan") == 0)
+    {
+      return scan_functions();
+    }
+    else
+    {
+      fprintf(stderr, "[ERROR] Unknown command option : %s\n", argv[1]);
+      printf("Use './secinspect --help' for usage information.\n");
+      return 1;
+    }
   }
+
+  printf("Usage: ./secinspect --help | --version | --scan\n");
+  return 1;
 }
