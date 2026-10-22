@@ -5,8 +5,7 @@
 void show_banner(void)
 {
   printf("==============================\n");
-  printf("SecInspect v0.1\n");
-  printf("system inspection tool\n");
+  printf("\033[33m system inspection tool \033[0m\n");
   printf("==============================\n");
   printf("\n");
 }
